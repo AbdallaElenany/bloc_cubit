@@ -1,14 +1,14 @@
-import 'package:bloc_cubit/features/home/data/models/book_model.dart';
 import '../../../../core/networking/api_handler.dart';
 import '../../../../core/networking/api_result.dart';
-import '../../../../core/networking/api_service.dart';
+import '../api_service/home_api_service.dart';
+import '../models/book_response_model.dart';
 
 class HomeRepo {
-  final ApiService _apiService;
+  final HomeApiService _apiService;
 
   HomeRepo(this._apiService);
 
-  Future<ApiResult<BookModel>> newestBooks() async {
+  Future<ApiResult<BookResponseModel>> newestBooks() async {
     try {
       final response = await _apiService.getNewestBooks();
       return ApiResult.success(response);
@@ -17,18 +17,9 @@ class HomeRepo {
     }
   }
 
-  Future<ApiResult<BookModel>> featuredBooks() async {
+  Future<ApiResult<BookResponseModel>> featuredBooks() async {
     try {
       final response = await _apiService.getFeaturedBooks();
-      return ApiResult.success(response);
-    } catch (e) {
-      return ApiResult.failure(ErrorHandler.handle(e));
-    }
-  }
-
-  Future<ApiResult<BookModel>> similarBooks() async {
-    try {
-      final response = await _apiService.getSimilarBooks();
       return ApiResult.success(response);
     } catch (e) {
       return ApiResult.failure(ErrorHandler.handle(e));

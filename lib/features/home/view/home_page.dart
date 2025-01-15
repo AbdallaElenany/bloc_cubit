@@ -28,10 +28,11 @@ class HomeScreen extends StatelessWidget {
                   SizedBox(height: 50.h),
                   Padding(
                     padding: EdgeInsets.only(left: 30.w),
-                    child: Text('Newest Books',
-                        style: TextStyles.font13DarkBlueRegular),
+                    child: Text(
+                      'Newest Books',
+                      style: TextStyles.font13DarkBlueRegular,
+                    ),
                   ),
-                  SizedBox(height: 20.h),
                 ],
               ),
             ),

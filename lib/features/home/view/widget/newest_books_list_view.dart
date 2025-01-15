@@ -11,38 +11,30 @@ class NewestBooksListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<HomeCubit, HomeState>(
-      listenWhen: (previous, current) =>
-          current is Loading || current is Success || current is Error,
-      listener: (context, state) {
-        state.whenOrNull(
-          loading: () {
-            showDialog(
-              context: context,
-              builder: (context) => const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.cyan,
-                ),
-              ),
-            );
-          },
-          success: (homeResponse) {
-            return ListView.builder(
-              itemCount: homeResponse.books.length,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.zero,
-              itemBuilder: (context, index) => Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: BookListViewItem(book: homeResponse.books[index]),
-              ),
-            );
-          },
-          error: (error) {
-            setupErrorState(context, error);
-          },
-        );
+    return BlocBuilder<HomeCubit, HomeState>(
+      buildWhen: (previous, current) =>
+          current is Loading || current is SuccessN || current is Error,
+      builder: (context, state) {
+        return state.maybeWhen(loading: () {
+          return CircularProgressIndicator(
+            color: Colors.cyan,
+          );
+        }, successN: (bookDataList) {
+          return ListView.builder(
+            itemCount: bookDataList?.length,
+            physics: const NeverScrollableScrollPhysics(),
+            padding: EdgeInsets.zero,
+            itemBuilder: (context, index) => Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: BookListViewItem(book: bookDataList![index]),
+            ),
+          );
+        }, error: (error) {
+          return const SizedBox.shrink();
+        }, orElse: () {
+          return const SizedBox.shrink();
+        });
       },
-      child: const SizedBox.shrink(),
     );
   }
 

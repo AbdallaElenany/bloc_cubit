@@ -7,7 +7,6 @@ import 'core/theming/colors.dart';
 
 void main() async {
   setupGetIt();
-  // To fix texts being hidden bug in flutter_screenutil in release mode.
   await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
 }

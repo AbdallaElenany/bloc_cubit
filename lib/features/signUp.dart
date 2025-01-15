@@ -93,7 +93,6 @@ class SignUpPage extends StatelessWidget {
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 30,
-                                fontFamily: 'Lato',
                                 fontWeight: FontWeight.w700,
                                 height: 0,
                               ),
@@ -122,7 +121,6 @@ class SignUpPage extends StatelessWidget {
                               style: const TextStyle(
                                 color: Color(0xFF757575),
                                 fontSize: 10,
-                                fontFamily: 'Lato',
                                 fontWeight: FontWeight.w400,
                                 height: 0,
                               ),
@@ -137,9 +135,7 @@ class SignUpPage extends StatelessWidget {
                                     ),
                                     text: " Terms & Conditions ",
                                     recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        //ontap here make action
-                                      },
+                                      ..onTap = () async {},
                                   ),
                                   const TextSpan(
                                     text: " and ",
@@ -150,9 +146,7 @@ class SignUpPage extends StatelessWidget {
                                     ),
                                     text: " Privacy Policy",
                                     recognizer: TapGestureRecognizer()
-                                      ..onTap = () async {
-                                        //ontap here make action
-                                      },
+                                      ..onTap = () async {},
                                   ),
                                 ],
                               ),
@@ -176,7 +170,6 @@ class SignUpPage extends StatelessWidget {
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 20,
-                                        fontFamily: 'Lato',
                                         fontWeight: FontWeight.w500,
                                         height: 0,
                                       ),
@@ -196,7 +189,6 @@ class SignUpPage extends StatelessWidget {
                                   style: TextStyle(
                                     color: Color(0xFF757575),
                                     fontSize: 10,
-                                    fontFamily: 'Lato',
                                     fontWeight: FontWeight.w400,
                                     height: 0,
                                   ),
@@ -209,7 +201,6 @@ class SignUpPage extends StatelessWidget {
                                   style: TextStyle(
                                     color: Color(0xFF4CB6BD),
                                     fontSize: 10,
-                                    fontFamily: 'Lato',
                                     fontWeight: FontWeight.w400,
                                     height: 0,
                                   ),

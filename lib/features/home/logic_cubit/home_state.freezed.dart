@@ -15,12 +15,13 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$HomeState<T> {
+mixin _$HomeState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
     required TResult Function(String error) error,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +29,8 @@ mixin _$HomeState<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
     TResult? Function(String error)? error,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,86 +38,95 @@ mixin _$HomeState<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $HomeStateCopyWith<T, $Res> {
-  factory $HomeStateCopyWith(
-          HomeState<T> value, $Res Function(HomeState<T>) then) =
-      _$HomeStateCopyWithImpl<T, $Res, HomeState<T>>;
+abstract class $HomeStateCopyWith<$Res> {
+  factory $HomeStateCopyWith(HomeState value, $Res Function(HomeState) then) =
+      _$HomeStateCopyWithImpl<$Res, HomeState>;
 }
 
 /// @nodoc
-class _$HomeStateCopyWithImpl<T, $Res, $Val extends HomeState<T>>
-    implements $HomeStateCopyWith<T, $Res> {
+class _$HomeStateCopyWithImpl<$Res, $Val extends HomeState>
+    implements $HomeStateCopyWith<$Res> {
   _$HomeStateCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<T, $Res> {
+abstract class _$$InitialImplCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
-          _$InitialImpl<T> value, $Res Function(_$InitialImpl<T>) then) =
-      __$$InitialImplCopyWithImpl<T, $Res>;
+          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
+      __$$InitialImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<T, $Res>
-    extends _$HomeStateCopyWithImpl<T, $Res, _$InitialImpl<T>>
-    implements _$$InitialImplCopyWith<T, $Res> {
+class __$$InitialImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$InitialImpl>
+    implements _$$InitialImplCopyWith<$Res> {
   __$$InitialImplCopyWithImpl(
-      _$InitialImpl<T> _value, $Res Function(_$InitialImpl<T>) _then)
+      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$InitialImpl<T> implements _Initial<T> {
+class _$InitialImpl implements _Initial {
   const _$InitialImpl();
 
   @override
   String toString() {
-    return 'HomeState<$T>.initial()';
+    return 'HomeState.initial()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$InitialImpl<T>);
+        (other.runtimeType == runtimeType && other is _$InitialImpl);
   }
 
   @override
@@ -126,7 +137,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
     required TResult Function(String error) error,
   }) {
     return initial();
@@ -137,7 +149,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
     TResult? Function(String error)? error,
   }) {
     return initial?.call();
@@ -148,7 +161,8 @@ class _$InitialImpl<T> implements _Initial<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -161,10 +175,11 @@ class _$InitialImpl<T> implements _Initial<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
   }) {
     return initial(this);
   }
@@ -172,10 +187,11 @@ class _$InitialImpl<T> implements _Initial<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
   }) {
     return initial?.call(this);
   }
@@ -183,10 +199,11 @@ class _$InitialImpl<T> implements _Initial<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -196,40 +213,43 @@ class _$InitialImpl<T> implements _Initial<T> {
   }
 }
 
-abstract class _Initial<T> implements HomeState<T> {
-  const factory _Initial() = _$InitialImpl<T>;
+abstract class _Initial implements HomeState {
+  const factory _Initial() = _$InitialImpl;
 }
 
 /// @nodoc
-abstract class _$$LoadingImplCopyWith<T, $Res> {
+abstract class _$$LoadingImplCopyWith<$Res> {
   factory _$$LoadingImplCopyWith(
-          _$LoadingImpl<T> value, $Res Function(_$LoadingImpl<T>) then) =
-      __$$LoadingImplCopyWithImpl<T, $Res>;
+          _$LoadingImpl value, $Res Function(_$LoadingImpl) then) =
+      __$$LoadingImplCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class __$$LoadingImplCopyWithImpl<T, $Res>
-    extends _$HomeStateCopyWithImpl<T, $Res, _$LoadingImpl<T>>
-    implements _$$LoadingImplCopyWith<T, $Res> {
+class __$$LoadingImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$LoadingImpl>
+    implements _$$LoadingImplCopyWith<$Res> {
   __$$LoadingImplCopyWithImpl(
-      _$LoadingImpl<T> _value, $Res Function(_$LoadingImpl<T>) _then)
+      _$LoadingImpl _value, $Res Function(_$LoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
 
-class _$LoadingImpl<T> implements Loading<T> {
+class _$LoadingImpl implements Loading {
   const _$LoadingImpl();
 
   @override
   String toString() {
-    return 'HomeState<$T>.loading()';
+    return 'HomeState.loading()';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$LoadingImpl<T>);
+        (other.runtimeType == runtimeType && other is _$LoadingImpl);
   }
 
   @override
@@ -240,7 +260,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
     required TResult Function(String error) error,
   }) {
     return loading();
@@ -251,7 +272,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
     TResult? Function(String error)? error,
   }) {
     return loading?.call();
@@ -262,7 +284,8 @@ class _$LoadingImpl<T> implements Loading<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -275,10 +298,11 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
   }) {
     return loading(this);
   }
@@ -286,10 +310,11 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
   }) {
     return loading?.call(this);
   }
@@ -297,10 +322,11 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -310,81 +336,95 @@ class _$LoadingImpl<T> implements Loading<T> {
   }
 }
 
-abstract class Loading<T> implements HomeState<T> {
-  const factory Loading() = _$LoadingImpl<T>;
+abstract class Loading implements HomeState {
+  const factory Loading() = _$LoadingImpl;
 }
 
 /// @nodoc
-abstract class _$$SuccessImplCopyWith<T, $Res> {
-  factory _$$SuccessImplCopyWith(
-          _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
-      __$$SuccessImplCopyWithImpl<T, $Res>;
+abstract class _$$SuccessFImplCopyWith<$Res> {
+  factory _$$SuccessFImplCopyWith(
+          _$SuccessFImpl value, $Res Function(_$SuccessFImpl) then) =
+      __$$SuccessFImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({T data});
+  $Res call({List<BookModel?>? bookDataList});
 }
 
 /// @nodoc
-class __$$SuccessImplCopyWithImpl<T, $Res>
-    extends _$HomeStateCopyWithImpl<T, $Res, _$SuccessImpl<T>>
-    implements _$$SuccessImplCopyWith<T, $Res> {
-  __$$SuccessImplCopyWithImpl(
-      _$SuccessImpl<T> _value, $Res Function(_$SuccessImpl<T>) _then)
+class __$$SuccessFImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$SuccessFImpl>
+    implements _$$SuccessFImplCopyWith<$Res> {
+  __$$SuccessFImplCopyWithImpl(
+      _$SuccessFImpl _value, $Res Function(_$SuccessFImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? data = freezed,
+    Object? bookDataList = freezed,
   }) {
-    return _then(_$SuccessImpl<T>(
-      freezed == data
-          ? _value.data
-          : data // ignore: cast_nullable_to_non_nullable
-              as T,
+    return _then(_$SuccessFImpl(
+      freezed == bookDataList
+          ? _value._bookDataList
+          : bookDataList // ignore: cast_nullable_to_non_nullable
+              as List<BookModel?>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$SuccessImpl<T> implements Success<T> {
-  const _$SuccessImpl(this.data);
+class _$SuccessFImpl implements SuccessF {
+  const _$SuccessFImpl(final List<BookModel?>? bookDataList)
+      : _bookDataList = bookDataList;
 
+  final List<BookModel?>? _bookDataList;
   @override
-  final T data;
+  List<BookModel?>? get bookDataList {
+    final value = _bookDataList;
+    if (value == null) return null;
+    if (_bookDataList is EqualUnmodifiableListView) return _bookDataList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'HomeState<$T>.success(data: $data)';
+    return 'HomeState.successF(bookDataList: $bookDataList)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$SuccessImpl<T> &&
-            const DeepCollectionEquality().equals(other.data, data));
+            other is _$SuccessFImpl &&
+            const DeepCollectionEquality()
+                .equals(other._bookDataList, _bookDataList));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_bookDataList));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
-      __$$SuccessImplCopyWithImpl<T, _$SuccessImpl<T>>(this, _$identity);
+  _$$SuccessFImplCopyWith<_$SuccessFImpl> get copyWith =>
+      __$$SuccessFImplCopyWithImpl<_$SuccessFImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
     required TResult Function(String error) error,
   }) {
-    return success(data);
+    return successF(bookDataList);
   }
 
   @override
@@ -392,10 +432,11 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
     TResult? Function(String error)? error,
   }) {
-    return success?.call(data);
+    return successF?.call(bookDataList);
   }
 
   @override
@@ -403,12 +444,13 @@ class _$SuccessImpl<T> implements Success<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(data);
+    if (successF != null) {
+      return successF(bookDataList);
     }
     return orElse();
   }
@@ -416,73 +458,249 @@ class _$SuccessImpl<T> implements Success<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
   }) {
-    return success(this);
+    return successF(this);
   }
 
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
   }) {
-    return success?.call(this);
+    return successF?.call(this);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
-    if (success != null) {
-      return success(this);
+    if (successF != null) {
+      return successF(this);
     }
     return orElse();
   }
 }
 
-abstract class Success<T> implements HomeState<T> {
-  const factory Success(final T data) = _$SuccessImpl<T>;
+abstract class SuccessF implements HomeState {
+  const factory SuccessF(final List<BookModel?>? bookDataList) = _$SuccessFImpl;
 
-  T get data;
-  @JsonKey(ignore: true)
-  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
+  List<BookModel?>? get bookDataList;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuccessFImplCopyWith<_$SuccessFImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorImplCopyWith<T, $Res> {
+abstract class _$$SuccessNImplCopyWith<$Res> {
+  factory _$$SuccessNImplCopyWith(
+          _$SuccessNImpl value, $Res Function(_$SuccessNImpl) then) =
+      __$$SuccessNImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<BookModel?>? bookDataList});
+}
+
+/// @nodoc
+class __$$SuccessNImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$SuccessNImpl>
+    implements _$$SuccessNImplCopyWith<$Res> {
+  __$$SuccessNImplCopyWithImpl(
+      _$SuccessNImpl _value, $Res Function(_$SuccessNImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? bookDataList = freezed,
+  }) {
+    return _then(_$SuccessNImpl(
+      freezed == bookDataList
+          ? _value._bookDataList
+          : bookDataList // ignore: cast_nullable_to_non_nullable
+              as List<BookModel?>?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$SuccessNImpl implements SuccessN {
+  const _$SuccessNImpl(final List<BookModel?>? bookDataList)
+      : _bookDataList = bookDataList;
+
+  final List<BookModel?>? _bookDataList;
+  @override
+  List<BookModel?>? get bookDataList {
+    final value = _bookDataList;
+    if (value == null) return null;
+    if (_bookDataList is EqualUnmodifiableListView) return _bookDataList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  @override
+  String toString() {
+    return 'HomeState.successN(bookDataList: $bookDataList)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$SuccessNImpl &&
+            const DeepCollectionEquality()
+                .equals(other._bookDataList, _bookDataList));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_bookDataList));
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$SuccessNImplCopyWith<_$SuccessNImpl> get copyWith =>
+      __$$SuccessNImplCopyWithImpl<_$SuccessNImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
+    required TResult Function(String error) error,
+  }) {
+    return successN(bookDataList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
+    TResult? Function(String error)? error,
+  }) {
+    return successN?.call(bookDataList);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
+    TResult Function(String error)? error,
+    required TResult orElse(),
+  }) {
+    if (successN != null) {
+      return successN(bookDataList);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
+  }) {
+    return successN(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
+  }) {
+    return successN?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) {
+    if (successN != null) {
+      return successN(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SuccessN implements HomeState {
+  const factory SuccessN(final List<BookModel?>? bookDataList) = _$SuccessNImpl;
+
+  List<BookModel?>? get bookDataList;
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$SuccessNImplCopyWith<_$SuccessNImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ErrorImplCopyWith<$Res> {
   factory _$$ErrorImplCopyWith(
-          _$ErrorImpl<T> value, $Res Function(_$ErrorImpl<T>) then) =
-      __$$ErrorImplCopyWithImpl<T, $Res>;
+          _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
+      __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
   $Res call({String error});
 }
 
 /// @nodoc
-class __$$ErrorImplCopyWithImpl<T, $Res>
-    extends _$HomeStateCopyWithImpl<T, $Res, _$ErrorImpl<T>>
-    implements _$$ErrorImplCopyWith<T, $Res> {
+class __$$ErrorImplCopyWithImpl<$Res>
+    extends _$HomeStateCopyWithImpl<$Res, _$ErrorImpl>
+    implements _$$ErrorImplCopyWith<$Res> {
   __$$ErrorImplCopyWithImpl(
-      _$ErrorImpl<T> _value, $Res Function(_$ErrorImpl<T>) _then)
+      _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
     Object? error = null,
   }) {
-    return _then(_$ErrorImpl<T>(
+    return _then(_$ErrorImpl(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
@@ -493,7 +711,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$ErrorImpl<T> implements Error<T> {
+class _$ErrorImpl implements Error {
   const _$ErrorImpl({required this.error});
 
   @override
@@ -501,32 +719,35 @@ class _$ErrorImpl<T> implements Error<T> {
 
   @override
   String toString() {
-    return 'HomeState<$T>.error(error: $error)';
+    return 'HomeState.error(error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ErrorImpl<T> &&
+            other is _$ErrorImpl &&
             (identical(other.error, error) || other.error == error));
   }
 
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
-      __$$ErrorImplCopyWithImpl<T, _$ErrorImpl<T>>(this, _$identity);
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(T data) success,
+    required TResult Function(List<BookModel?>? bookDataList) successF,
+    required TResult Function(List<BookModel?>? bookDataList) successN,
     required TResult Function(String error) error,
   }) {
     return error(this.error);
@@ -537,7 +758,8 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(T data)? success,
+    TResult? Function(List<BookModel?>? bookDataList)? successF,
+    TResult? Function(List<BookModel?>? bookDataList)? successN,
     TResult? Function(String error)? error,
   }) {
     return error?.call(this.error);
@@ -548,7 +770,8 @@ class _$ErrorImpl<T> implements Error<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(T data)? success,
+    TResult Function(List<BookModel?>? bookDataList)? successF,
+    TResult Function(List<BookModel?>? bookDataList)? successN,
     TResult Function(String error)? error,
     required TResult orElse(),
   }) {
@@ -561,10 +784,11 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
-    required TResult Function(_Initial<T> value) initial,
-    required TResult Function(Loading<T> value) loading,
-    required TResult Function(Success<T> value) success,
-    required TResult Function(Error<T> value) error,
+    required TResult Function(_Initial value) initial,
+    required TResult Function(Loading value) loading,
+    required TResult Function(SuccessF value) successF,
+    required TResult Function(SuccessN value) successN,
+    required TResult Function(Error value) error,
   }) {
     return error(this);
   }
@@ -572,10 +796,11 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial<T> value)? initial,
-    TResult? Function(Loading<T> value)? loading,
-    TResult? Function(Success<T> value)? success,
-    TResult? Function(Error<T> value)? error,
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(Loading value)? loading,
+    TResult? Function(SuccessF value)? successF,
+    TResult? Function(SuccessN value)? successN,
+    TResult? Function(Error value)? error,
   }) {
     return error?.call(this);
   }
@@ -583,10 +808,11 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial<T> value)? initial,
-    TResult Function(Loading<T> value)? loading,
-    TResult Function(Success<T> value)? success,
-    TResult Function(Error<T> value)? error,
+    TResult Function(_Initial value)? initial,
+    TResult Function(Loading value)? loading,
+    TResult Function(SuccessF value)? successF,
+    TResult Function(SuccessN value)? successN,
+    TResult Function(Error value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -596,11 +822,14 @@ class _$ErrorImpl<T> implements Error<T> {
   }
 }
 
-abstract class Error<T> implements HomeState<T> {
-  const factory Error({required final String error}) = _$ErrorImpl<T>;
+abstract class Error implements HomeState {
+  const factory Error({required final String error}) = _$ErrorImpl;
 
   String get error;
-  @JsonKey(ignore: true)
-  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
+
+  /// Create a copy of HomeState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

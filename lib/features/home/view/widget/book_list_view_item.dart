@@ -9,7 +9,7 @@ class BookListViewItem extends StatelessWidget {
     super.key,
     required this.book,
   });
-  final BookModel book;
+  final BookModel? book;
   @override
   Widget build(BuildContext context) {
     final double width = MediaQuery.of(context).size.width * .6;
@@ -24,7 +24,7 @@ class BookListViewItem extends StatelessWidget {
           child: Row(
             children: [
               CustomBookImage(
-                  imageUrl: book.volumeInfo.imageLinks?.thumbnail ?? ''),
+                  imageUrl: book?.volumeInfo.imageLinks?.thumbnail ?? ''),
               const SizedBox(width: 30),
               Expanded(
                 child: Column(
@@ -33,7 +33,7 @@ class BookListViewItem extends StatelessWidget {
                     SizedBox(
                       width: width,
                       child: Text(
-                        book.volumeInfo.title!,
+                        book!.volumeInfo.title!,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyles.font16WhiteMedium,
@@ -41,7 +41,7 @@ class BookListViewItem extends StatelessWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
-                      book.volumeInfo.authors![0],
+                      book!.volumeInfo.authors![0],
                       overflow: TextOverflow.ellipsis,
                       style: TextStyles.font13DarkBlueMedium,
                     ),
@@ -55,8 +55,8 @@ class BookListViewItem extends StatelessWidget {
                               .copyWith(fontWeight: FontWeight.bold),
                         ),
                         BookRating(
-                          count: book.volumeInfo.ratingsCount ?? 0,
-                          rating: book.volumeInfo.averageRating ?? 0,
+                          count: book!.volumeInfo.ratingsCount ?? 0,
+                          rating: book!.volumeInfo.averageRating ?? 0,
                         )
                       ],
                     )
