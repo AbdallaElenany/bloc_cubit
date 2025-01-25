@@ -13,32 +13,23 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: CustomScrollView(
-          physics: const BouncingScrollPhysics(),
-          slivers: [
-            SliverToBoxAdapter(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const CustomAppBar(
-                    asset: "assets/images/book.PNG",
-                    icon: FontAwesomeIcons.magnifyingGlass,
-                  ),
-                  const FeaturedBooksListView(),
-                  SizedBox(height: 50.h),
-                  Padding(
-                    padding: EdgeInsets.only(left: 30.w),
-                    child: Text(
-                      'Newest Books',
-                      style: TextStyles.font13DarkBlueRegular,
-                    ),
-                  ),
-                ],
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const CustomAppBar(
+              asset: "assets/images/book.PNG",
+              icon: FontAwesomeIcons.magnifyingGlass,
+            ),
+            SizedBox(height: 50.h),
+            const FeaturedBooksListView(),
+            Padding(
+              padding: EdgeInsets.only(top: 20.h, left: 30.w, bottom: 20.h),
+              child: Text(
+                'Newest Books',
+                style: TextStyles.font13DarkBlueRegular,
               ),
             ),
-            const SliverFillRemaining(
-              child: NewestBooksListView(),
-            )
+            Expanded(child: NewestBooksListView()),
           ],
         ),
       ),

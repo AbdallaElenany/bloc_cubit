@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../data/models/book_model.dart';
-import '../data/repository/home_repository.dart';
+import '../../data/models/book_model.dart';
+import '../../data/repository/home/home_repository.dart';
 import 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {

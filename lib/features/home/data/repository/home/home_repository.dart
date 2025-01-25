@@ -1,7 +1,7 @@
-import '../../../../core/networking/api_handler.dart';
-import '../../../../core/networking/api_result.dart';
-import '../api_service/home_api_service.dart';
-import '../models/book_response_model.dart';
+import '../../../../../core/networking/api_handler.dart';
+import '../../../../../core/networking/api_result.dart';
+import '../../api_service/home/home_api_service.dart';
+import '../../models/book_response_model.dart';
 
 class HomeRepo {
   final HomeApiService _apiService;

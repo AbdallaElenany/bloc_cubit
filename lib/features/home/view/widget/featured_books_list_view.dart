@@ -2,9 +2,10 @@ import 'package:bloc_cubit/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/routing/routes.dart';
+import '../../../../core/share_widgets/custom_error_widget.dart';
 import '../../../../core/theming/styles.dart';
-import '../../logic_cubit/home_cubit.dart';
-import '../../logic_cubit/home_state.dart';
+import '../../logic_cubit/home/home_cubit.dart';
+import '../../logic_cubit/home/home_state.dart';
 import 'custom_book_image.dart';
 
 class FeaturedBooksListView extends StatefulWidget {
@@ -24,7 +25,7 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height * .3;
+    final double height = MediaQuery.of(context).size.height * .25;
     return BlocBuilder<HomeCubit, HomeState>(
       buildWhen: (previous, current) =>
           current is Loading || current is SuccessF || current is Error,
@@ -44,7 +45,10 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.only(right: 16.0),
                 child: GestureDetector(
-                  onTap: () => context.pushNamed(Routes.signUpScreen),
+                  onTap: () => context.pushNamed(
+                    Routes.bookDetailsScreen,
+                    arguments: bookDataList?[index],
+                  ),
                   child: CustomBookImage(
                     imageUrl: bookDataList?[index]
                             ?.volumeInfo
@@ -57,7 +61,7 @@ class _FeaturedBooksListViewState extends State<FeaturedBooksListView> {
             ),
           );
         }, error: (error) {
-          return const SizedBox.shrink();
+          return CustomErrorWidget(errMessage: error);
         }, orElse: () {
           return const SizedBox.shrink();
         });

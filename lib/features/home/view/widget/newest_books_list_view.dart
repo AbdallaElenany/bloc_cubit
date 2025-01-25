@@ -1,9 +1,8 @@
-import 'package:bloc_cubit/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../core/theming/styles.dart';
-import '../../logic_cubit/home_cubit.dart';
-import '../../logic_cubit/home_state.dart';
+import '../../../../core/share_widgets/custom_error_widget.dart';
+import '../../logic_cubit/home/home_cubit.dart';
+import '../../logic_cubit/home/home_state.dart';
 import 'book_list_view_item.dart';
 
 class NewestBooksListView extends StatelessWidget {
@@ -22,7 +21,6 @@ class NewestBooksListView extends StatelessWidget {
         }, successN: (bookDataList) {
           return ListView.builder(
             itemCount: bookDataList?.length,
-            physics: const NeverScrollableScrollPhysics(),
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) => Padding(
               padding: const EdgeInsets.only(bottom: 10),
@@ -30,40 +28,11 @@ class NewestBooksListView extends StatelessWidget {
             ),
           );
         }, error: (error) {
-          return const SizedBox.shrink();
+          return CustomErrorWidget(errMessage: error);
         }, orElse: () {
           return const SizedBox.shrink();
         });
       },
-    );
-  }
-
-  void setupErrorState(BuildContext context, String error) {
-    context.pop();
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        icon: const Icon(
-          Icons.error,
-          color: Colors.red,
-          size: 32,
-        ),
-        content: Text(
-          error,
-          style: TextStyles.font14DarkBlueMedium,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pop();
-            },
-            child: Text(
-              'Got it',
-              style: TextStyles.font16WhiteMedium,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

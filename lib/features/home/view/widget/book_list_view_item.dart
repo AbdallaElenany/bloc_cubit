@@ -1,4 +1,6 @@
+import 'package:bloc_cubit/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/routing/routes.dart';
 import '../../../../core/theming/styles.dart';
 import '../../data/models/book_model.dart';
 import 'book_rating.dart';
@@ -16,9 +18,10 @@ class BookListViewItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: GestureDetector(
-        onTap: () {
-          //GoRouter.of(context).push(AppRoutes.bookDetailsView, extra: book);
-        },
+        onTap: () => context.pushNamed(
+          Routes.bookDetailsScreen,
+          arguments: book,
+        ),
         child: SizedBox(
           height: 125,
           child: Row(
