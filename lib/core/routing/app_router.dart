@@ -6,6 +6,7 @@ import '../../features/home/data/models/book_model.dart';
 import '../../features/home/logic_cubit/home/home_cubit.dart';
 import '../../features/home/view/book_details_page.dart';
 import '../../features/home/view/home_page.dart';
+import '../../features/send_data_test.dart';
 import '../../features/signUp.dart';
 import '../di/dependency_injection.dart';
 
@@ -16,6 +17,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const SignUpPage(),
         );
+
       case Routes.homeScreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
@@ -23,6 +25,7 @@ class AppRouter {
             child: const HomeScreen(),
           ),
         );
+
       case Routes.bookDetailsScreen:
         final book = settings.arguments as BookModel;
         return MaterialPageRoute(
@@ -33,6 +36,12 @@ class AppRouter {
             ),
           ),
         );
+
+      case Routes.sendDataTest:
+        return MaterialPageRoute(
+          builder: (_) => SendDataTest(),
+        );
+
       default:
         return null;
     }

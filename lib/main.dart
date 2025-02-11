@@ -3,12 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/helpers/block_observer.dart';
+import 'core/helpers/navigation_service.dart';
+import 'core/helpers/offline_service/offline_sync_service.dart';
+import 'core/helpers/offline_service/offline_storage_service.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/routes.dart';
 import 'core/theming/colors.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await OfflineStorageService.init();
+  OfflineSyncService.startListening();
   Bloc.observer = SimpleBlocObserver();
   await ScreenUtil.ensureScreenSize();
   await setupGetIt();
@@ -26,12 +33,13 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       child: MaterialApp(
         title: 'bloc_cubit App',
+        navigatorKey: NavigationService.navigatorKey,
         theme: ThemeData(
           primaryColor: ColorsManager.mainBlue,
           scaffoldBackgroundColor: Colors.white,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.homeScreen,
+        initialRoute: Routes.sendDataTest,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );
