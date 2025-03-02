@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
         ),
         debugShowCheckedModeBanner: false,
-        initialRoute: Routes.sendDataTest,
+        initialRoute: Routes.masterHome,
         onGenerateRoute: appRouter.generateRoute,
       ),
     );

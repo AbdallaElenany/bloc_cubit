@@ -6,6 +6,7 @@ import '../../features/home/data/models/book_model.dart';
 import '../../features/home/logic_cubit/home/home_cubit.dart';
 import '../../features/home/view/book_details_page.dart';
 import '../../features/home/view/home_page.dart';
+import '../../features/master_home/view/master_home.dart';
 import '../../features/send_data_test.dart';
 import '../../features/signUp.dart';
 import '../di/dependency_injection.dart';
@@ -16,6 +17,11 @@ class AppRouter {
       case Routes.signUpScreen:
         return MaterialPageRoute(
           builder: (_) => const SignUpPage(),
+        );
+
+      case Routes.masterHome:
+        return MaterialPageRoute(
+          builder: (_) => BottomNavBar(),
         );
 
       case Routes.homeScreen:
