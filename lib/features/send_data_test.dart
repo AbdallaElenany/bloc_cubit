@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../core/helpers/offline_service/data_service.dart';
-import '../core/helpers/offline_service/offline_sync_service.dart';
+import '../core/services/offline_service/data_service.dart';
+import '../core/services/offline_service/offline_sync_service.dart';
 
 class SendDataTest extends StatefulWidget {
   const SendDataTest({super.key});

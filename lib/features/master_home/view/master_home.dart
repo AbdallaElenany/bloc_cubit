@@ -39,11 +39,11 @@ class BottomNavBar extends StatelessWidget {
           ),
 
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+              CustomFABLocation(), // Custom FAB positioning
           bottomNavigationBar: BottomAppBar(
-            height: 75,
-            shape: CustomNotchedShape(), // Custom notch for square FAB
-            notchMargin: 6.0, // Space for FAB cutout
+            height: 70,
+            shape: CircularNotchedRectangle(), // Custom notch for square FAB
+            notchMargin: 8.0, // Space for FAB cutout
             color: Colors.transparent,
             //shadowColor: Colors.grey,
             surfaceTintColor: Colors.black,
@@ -85,6 +85,20 @@ class BottomNavBar extends StatelessWidget {
   }
 }
 
+/// Custom FAB Position (Moves FAB Downwards)**
+class CustomFABLocation extends FloatingActionButtonLocation {
+  @override
+  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
+    double fabX = (scaffoldGeometry.scaffoldSize.width -
+            scaffoldGeometry.floatingActionButtonSize.width) /
+        2;
+    double fabY = scaffoldGeometry.contentBottom -
+        (scaffoldGeometry.floatingActionButtonSize.height *
+            0.5); // Moves FAB lower
+    return Offset(fabX, fabY);
+  }
+}
+
 /// Custom Notch for Square FAB
 class CustomNotchedShape extends NotchedShape {
   @override
@@ -93,8 +107,8 @@ class CustomNotchedShape extends NotchedShape {
       return Path()..addRect(host);
     }
 
-    double notchRadius = guest.width / 2.1;
-    double notchMargin = 2.0;
+    double notchRadius = guest.width / 2;
+    double notchMargin = 12.0;
 
     Path path = Path()
       ..moveTo(host.left, host.top)

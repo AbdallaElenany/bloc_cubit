@@ -4,10 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'core/di/dependency_injection.dart';
 import 'core/helpers/block_observer.dart';
 import 'core/helpers/navigation_service.dart';
-import 'core/helpers/offline_service/offline_sync_service.dart';
-import 'core/helpers/offline_service/offline_storage_service.dart';
 import 'core/routing/app_router.dart';
 import 'core/routing/routes.dart';
+import 'core/services/offline_service/offline_storage_service.dart';
+import 'core/services/offline_service/offline_sync_service.dart';
 import 'core/theming/colors.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
