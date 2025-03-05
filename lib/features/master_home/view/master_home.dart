@@ -1,91 +1,106 @@
+import 'package:bloc_cubit/features/master_home/view/widget/nav_item.dart';
+import 'package:bloc_cubit/features/master_home/view/widget/tab_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../data/model/nav_model.dart';
 import '../logic_cubit/bottom_nav_bar_cubit.dart';
 
-class BottomNavBar extends StatelessWidget {
+class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final List<Widget> pages = [
-      Container(),
-      Container(),
-      Container(),
-      Container(),
-    ];
-    return BlocProvider(
-      create: (context) => BottomNavBarCubit(),
-      child: BlocBuilder<BottomNavBarCubit, int>(
-        builder: (context, state) => Scaffold(
-          body: pages[state], // Show selected screen
-          floatingActionButton: SizedBox(
-            width: 60, // Square width
-            height: 60, // Square height
-            child: FloatingActionButton(
-              onPressed: () {
-                context
-                    .read<BottomNavBarCubit>()
-                    .changeTab(2); // Navigate to Dashboard
-              },
-              backgroundColor: Colors.blue, // Adjust color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    10), // Square edges with slight rounding
-              ),
-              child: Icon(Icons.dashboard,
-                  size: 25, color: Colors.white), // Your custom icon
-            ),
-          ),
+  State<BottomNavBar> createState() => _BottomNavBarState();
+}
 
-          floatingActionButtonLocation:
-              CustomFABLocation(), // Custom FAB positioning
-          bottomNavigationBar: BottomAppBar(
-            height: 70,
-            shape: CircularNotchedRectangle(), // Custom notch for square FAB
-            notchMargin: 8.0, // Space for FAB cutout
-            color: Colors.transparent,
-            //shadowColor: Colors.grey,
-            surfaceTintColor: Colors.black,
-            child: BottomNavigationBar(
-              currentIndex: state,
-              onTap: (index) =>
-                  context.read<BottomNavBarCubit>().changeTab(index),
-              selectedItemColor: Colors.blue,
-              unselectedItemColor: Colors.grey,
-              backgroundColor: Colors.transparent,
-              type: BottomNavigationBarType.fixed,
-              selectedFontSize: 10,
-              unselectedFontSize: 10,
-              elevation: 0,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.person_outline),
-                  label: 'Profile',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.local_shipping_outlined),
-                  label: 'Packages',
-                ),
-                const BottomNavigationBarItem(icon: SizedBox(), label: ""),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined),
-                  label: 'Home',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home_outlined),
-                  label: 'Home',
-                ),
-              ],
+class _BottomNavBarState extends State<BottomNavBar> {
+  final homeNavKey = GlobalKey<NavigatorState>();
+  final searchNavKey = GlobalKey<NavigatorState>();
+  final notificationNavKey = GlobalKey<NavigatorState>();
+  final profileNavKey = GlobalKey<NavigatorState>();
+
+  late List<NavModel> items;
+
+  @override
+  void initState() {
+    super.initState();
+    items = [
+      NavModel(page: const TabPage(tab: 1), navKey: homeNavKey),
+      NavModel(page: const TabPage(tab: 2), navKey: searchNavKey),
+      NavModel(page: const TabPage(tab: 3), navKey: notificationNavKey),
+      NavModel(page: const TabPage(tab: 4), navKey: profileNavKey),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        final selectedTab =
+            context.read<BottomNavBarCubit>().state.selectedIndex;
+        if (items[selectedTab].navKey.currentState?.canPop() ?? false) {
+          items[selectedTab].navKey.currentState?.pop();
+          return false;
+        }
+        return true;
+      },
+      child: BlocBuilder<BottomNavBarCubit, BottomNavBarState>(
+        builder: (context, state) {
+          int selectedTab = state.selectedIndex;
+
+          return Scaffold(
+            body: IndexedStack(
+              index: selectedTab,
+              children: items
+                  .map((page) => Navigator(
+                        key: page.navKey,
+                        onGenerateInitialRoutes: (navigator, initialRoute) {
+                          return [
+                            MaterialPageRoute(builder: (context) => page.page)
+                          ];
+                        },
+                      ))
+                  .toList(),
             ),
-          ),
-        ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+            floatingActionButton: Container(
+              margin: const EdgeInsets.only(top: 20),
+              height: 60,
+              width: 60,
+              child: FloatingActionButton(
+                backgroundColor: Colors.green,
+                elevation: 0,
+                onPressed: () => debugPrint("Add Button pressed"),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: const Icon(
+                  Icons.add,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            bottomNavigationBar: NavBar(
+              pageIndex: selectedTab,
+              onTap: (index) {
+                if (index == selectedTab) {
+                  items[index]
+                      .navKey
+                      .currentState
+                      ?.popUntil((route) => route.isFirst);
+                } else {
+                  context.read<BottomNavBarCubit>().changeTab(index);
+                }
+              },
+            ),
+          );
+        },
       ),
     );
   }
 }
 
-/// Custom FAB Position (Moves FAB Downwards)**
+/*/// Custom FAB Position (Moves FAB Downwards)
 class CustomFABLocation extends FloatingActionButtonLocation {
   @override
   Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
@@ -93,8 +108,7 @@ class CustomFABLocation extends FloatingActionButtonLocation {
             scaffoldGeometry.floatingActionButtonSize.width) /
         2;
     double fabY = scaffoldGeometry.contentBottom -
-        (scaffoldGeometry.floatingActionButtonSize.height *
-            0.5); // Moves FAB lower
+        (scaffoldGeometry.floatingActionButtonSize.height * 0.5);
     return Offset(fabX, fabY);
   }
 }
@@ -125,4 +139,4 @@ class CustomNotchedShape extends NotchedShape {
 
     return path;
   }
-}
+}*/
