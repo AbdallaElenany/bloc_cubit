@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class NavBar extends StatelessWidget {
   final int pageIndex;
@@ -13,12 +14,12 @@ class NavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      notchMargin: 5.0,
-      elevation: 0,
-      shadowColor: Colors.cyan,
-      color: Colors.transparent,
-      surfaceTintColor: Colors.black,
+      padding: EdgeInsets.zero,
+      shape: CustomNotchedRectangle(),
+      notchMargin: 0.0,
+      elevation: 10.0,
+      shadowColor: Colors.black,
+      color: Colors.white,
       child: BottomNavigationBar(
         currentIndex: pageIndex,
         onTap: (index) => onTap(index),
@@ -26,21 +27,26 @@ class NavBar extends StatelessWidget {
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.transparent,
         type: BottomNavigationBarType.fixed,
-        selectedFontSize: 10,
-        unselectedFontSize: 10,
-        elevation: 0,
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
+        elevation: 0.0,
+        iconSize: 24,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person_outline,
-              size: 25,
+            icon: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Icon(
+                Icons.person_outline,
+              ),
             ),
             label: 'Profile',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.local_shipping_outlined,
-              size: 25,
+            icon: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Icon(
+                Icons.local_shipping_outlined,
+              ),
             ),
             label: 'Packages',
           ),
@@ -49,80 +55,78 @@ class NavBar extends StatelessWidget {
             label: '',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 25,
+            icon: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Icon(
+                Icons.manage_search,
+              ),
             ),
-            label: 'Home',
+            label: 'Dashboard',
           ),
           BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home_outlined,
-              size: 25,
+            icon: Padding(
+              padding: const EdgeInsets.only(bottom: 5.0),
+              child: Icon(
+                Icons.home_filled,
+              ),
             ),
             label: 'Home',
           ),
         ],
       ),
-      /* Container(
-        //height: 60,
-        color: Colors.grey,
-        child: Row(
-          children: [
-            navItem(
-              Icons.home_outlined,
-              pageIndex == 0,
-              "Home",
-              onTap: () => onTap(0),
-            ),
-            navItem(
-              Icons.message_outlined,
-              pageIndex == 1,
-              "Home",
-              onTap: () => onTap(1),
-            ),
-            const SizedBox(width: 80),
-            navItem(
-              Icons.notifications_none_outlined,
-              pageIndex == 2,
-              "Home",
-              onTap: () => onTap(2),
-            ),
-            navItem(
-              Icons.person_outline,
-              pageIndex == 3,
-              "Home",
-              onTap: () => onTap(3),
-            ),
-          ],
-        ),
-      ),*/
     );
   }
+}
 
-  Widget navItem(IconData icon, bool selected, String text,
-      {Function()? onTap}) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Container(
-          color: Colors.cyan,
-          //padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Icon(
-                icon,
-                color: selected ? Colors.green : Colors.green.withOpacity(0.4),
-              ),
-              Text(
-                text,
-                style: TextStyle(fontSize: 12),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+class CustomNotchedRectangle extends NotchedShape {
+  const CustomNotchedRectangle();
+
+  @override
+  Path getOuterPath(Rect host, Rect? guest) {
+    if (guest == null || !host.overlaps(guest)) return Path()..addRect(host);
+
+    const double s1 = 10.0;
+    const double s2 = 10.0;
+    const double addedRadius = 2;
+
+    final double notchRadius = guest.width / 2.0 + addedRadius;
+    final double r = notchRadius;
+    final double a = -1.0 * r - s2;
+    final double b = host.top - guest.center.dy;
+
+    final double n2 = math.sqrt(b * b * r * r * (a * a + b * b - r * r));
+    final double p2xA = ((a * r * r) - n2) / (a * a + b * b);
+    final double p2xB = ((a * r * r) + n2) / (a * a + b * b);
+    final double p2yA = math.sqrt(r * r - p2xA * p2xA);
+    final double p2yB = math.sqrt(r * r - p2xB * p2xB);
+
+    final List<Offset?> p = List<Offset?>.filled(6, null);
+
+    p[0] = Offset(a - s1, b);
+    p[1] = Offset(a, b);
+    final double cmp = b < 0 ? -1.0 : 1.0;
+    p[2] = cmp * p2yA > cmp * p2yB ? Offset(p2xA, p2yA) : Offset(p2xB, p2yB);
+
+    p[3] = Offset(-1.0 * p[2]!.dx, p[2]!.dy);
+    p[4] = Offset(-1.0 * p[1]!.dx, p[1]!.dy);
+    p[5] = Offset(-1.0 * p[0]!.dx, p[0]!.dy);
+    for (int i = 0; i < p.length; i += 1) {
+      p[i] = p[i]! + guest.center;
+    }
+
+    return Path()
+      ..moveTo(host.left, host.top)
+      ..lineTo(p[0]!.dx, p[0]!.dy)
+      ..quadraticBezierTo(p[1]!.dx, p[1]!.dy, p[2]!.dx, p[2]!.dy)
+      ..arcToPoint(
+        p[3]!,
+        radius: Radius.circular(notchRadius),
+        clockwise: false,
+      )
+      ..quadraticBezierTo(p[4]!.dx, p[4]!.dy, p[5]!.dx, p[5]!.dy)
+      ..lineTo(host.right, host.top)
+      ..lineTo(host.right, host.bottom)
+      ..lineTo(host.left, host.bottom)
+      ..close();
   }
 }

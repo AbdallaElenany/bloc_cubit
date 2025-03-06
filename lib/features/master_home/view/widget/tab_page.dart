@@ -9,6 +9,8 @@ class TabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
+      backgroundColor: Colors.white12,
       appBar: AppBar(title: Text('Tab $tab')),
       body: Center(
         child: Column(

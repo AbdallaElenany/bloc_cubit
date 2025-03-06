@@ -26,6 +26,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     items = [
       NavModel(page: const TabPage(tab: 1), navKey: homeNavKey),
       NavModel(page: const TabPage(tab: 2), navKey: searchNavKey),
+      // NavModel(page: const TabPage(tab: 0), navKey: searchNavKey),
       NavModel(page: const TabPage(tab: 3), navKey: notificationNavKey),
       NavModel(page: const TabPage(tab: 4), navKey: profileNavKey),
     ];
@@ -75,8 +76,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: const Icon(
-                  Icons.add,
+                  Icons.dashboard_outlined,
                   color: Colors.white,
+                  size: 24,
                 ),
               ),
             ),
@@ -99,44 +101,3 @@ class _BottomNavBarState extends State<BottomNavBar> {
     );
   }
 }
-
-/*/// Custom FAB Position (Moves FAB Downwards)
-class CustomFABLocation extends FloatingActionButtonLocation {
-  @override
-  Offset getOffset(ScaffoldPrelayoutGeometry scaffoldGeometry) {
-    double fabX = (scaffoldGeometry.scaffoldSize.width -
-            scaffoldGeometry.floatingActionButtonSize.width) /
-        2;
-    double fabY = scaffoldGeometry.contentBottom -
-        (scaffoldGeometry.floatingActionButtonSize.height * 0.5);
-    return Offset(fabX, fabY);
-  }
-}
-
-/// Custom Notch for Square FAB
-class CustomNotchedShape extends NotchedShape {
-  @override
-  Path getOuterPath(Rect host, Rect? guest) {
-    if (guest == null) {
-      return Path()..addRect(host);
-    }
-
-    double notchRadius = guest.width / 2;
-    double notchMargin = 12.0;
-
-    Path path = Path()
-      ..moveTo(host.left, host.top)
-      ..lineTo(guest.center.dx - notchRadius - notchMargin, host.top)
-      ..arcToPoint(
-        Offset(guest.center.dx + notchRadius + notchMargin, host.top),
-        radius: Radius.circular(notchRadius),
-        clockwise: false,
-      )
-      ..lineTo(host.right, host.top)
-      ..lineTo(host.right, host.bottom)
-      ..lineTo(host.left, host.bottom)
-      ..close();
-
-    return path;
-  }
-}*/
