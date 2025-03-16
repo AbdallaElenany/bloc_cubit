@@ -26,7 +26,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
     items = [
       NavModel(page: const TabPage(tab: 1), navKey: homeNavKey),
       NavModel(page: const TabPage(tab: 2), navKey: searchNavKey),
-      // NavModel(page: const TabPage(tab: 0), navKey: searchNavKey),
+      NavModel(
+        page: const SizedBox.shrink(),
+        navKey: GlobalKey<NavigatorState>(),
+      ),
       NavModel(page: const TabPage(tab: 3), navKey: notificationNavKey),
       NavModel(page: const TabPage(tab: 4), navKey: profileNavKey),
     ];
@@ -49,6 +52,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
           int selectedTab = state.selectedIndex;
 
           return Scaffold(
+            extendBody: true,
+
             body: IndexedStack(
               index: selectedTab,
               children: items
@@ -83,18 +88,19 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
             ),
             bottomNavigationBar: NavBar(
-              pageIndex: selectedTab,
-              onTap: (index) {
-                if (index == selectedTab) {
-                  items[index]
-                      .navKey
-                      .currentState
-                      ?.popUntil((route) => route.isFirst);
-                } else {
-                  context.read<BottomNavBarCubit>().changeTab(index);
-                }
-              },
-            ),
+                pageIndex: selectedTab,
+                onTap: (index) {
+                  if (index != 2) {
+                    if (index == selectedTab) {
+                      items[index]
+                          .navKey
+                          .currentState
+                          ?.popUntil((route) => route.isFirst);
+                    } else {
+                      context.read<BottomNavBarCubit>().changeTab(index);
+                    }
+                  }
+                }),
           );
         },
       ),

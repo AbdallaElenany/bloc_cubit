@@ -8,8 +8,6 @@ class Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
-      backgroundColor: Colors.white12,
       appBar: AppBar(title: Text('Page Tab $tab')),
       body: Center(child: Text('Tab $tab')),
     );

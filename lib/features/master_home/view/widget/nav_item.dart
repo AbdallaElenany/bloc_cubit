@@ -16,9 +16,7 @@ class NavBar extends StatelessWidget {
     return BottomAppBar(
       padding: EdgeInsets.zero,
       shape: CustomNotchedRectangle(),
-      notchMargin: 0.0,
-      elevation: 10.0,
-      shadowColor: Colors.black,
+      notchMargin: 2.0,
       color: Colors.white,
       child: BottomNavigationBar(
         currentIndex: pageIndex,
@@ -86,8 +84,8 @@ class CustomNotchedRectangle extends NotchedShape {
     if (guest == null || !host.overlaps(guest)) return Path()..addRect(host);
 
     const double s1 = 10.0;
-    const double s2 = 10.0;
-    const double addedRadius = 2;
+    const double s2 = 8.0;
+    const double addedRadius = 2.0;
 
     final double notchRadius = guest.width / 2.0 + addedRadius;
     final double r = notchRadius;
