@@ -170,19 +170,60 @@ class _TabPageState extends State<TabPage> {
         ),
         SizedBox(height: 10),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            _buildLegendItem("1st: 0.0%", Colors.green),
-            _buildLegendItem("2nd: 0.0%", Colors.purple),
-            _buildLegendItem("3rd: 0.0%", Colors.blue),
-            _buildLegendItem("4th: 0.0%", Colors.teal),
+            SizedBox(
+              height: 100,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _buildLegendItem("1st: 0.0%", Colors.green),
+                  _buildLegendItem("2nd: 0.0%", Colors.purple),
+                  _buildLegendItem("3rd: 0.0%", Colors.blue),
+                ],
+              ),
+            ),
+            Center(
+              child: SizedBox(
+                width: 120, // Define a fixed size
+                height: 120,
+                child: CustomPaint(
+                  painter: CircularMultiProgressIndicator(
+                    values: [
+                      0.2,
+                      0.5,
+                      0.3
+                    ], // Percentages (sum should not exceed 1.0)
+                    colors: [Colors.blue, Colors.green, Colors.orange],
+                    gapSize: 0.01, // Spacer size
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
-        SizedBox(height: 10),
-        Center(
-          child: CircularMultiProgressIndicator(
-            values: [0.3, 0.4, 0.3], // Example: 30%, 40%, 30%
-            colors: [Colors.blue, Colors.green, Colors.orange],
-          ),
+        SizedBox(
+          height: 50,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SemiCircularProgressIndicator(
+              label: "Overall Success",
+              progress: 0.446,
+              color: Colors.blue,
+            ),
+            SemiCircularProgressIndicator(
+              label: "Closed Success",
+              progress: 0.752,
+              color: Colors.green,
+            ),
+            SemiCircularProgressIndicator(
+                label: "Total Delivered",
+                progress: 0.494,
+                color: Colors.orange),
+          ],
         ),
       ],
     );
@@ -205,79 +246,130 @@ class _TabPageState extends State<TabPage> {
   }
 }
 
-class CircularMultiProgressIndicator extends StatelessWidget {
-  final List<double> values; // Percentages (0.0 to 1.0)
-  final List<Color> colors;
-  final double strokeWidth;
-  final double radius;
+class CircularMultiProgressIndicator extends CustomPainter {
+  final List<double> values; // Percent values
+  final List<Color> colors; // Colors for each segment
+  final double gapSize; // Gap between segments
 
-  const CircularMultiProgressIndicator({
-    super.key,
-    required this.values,
-    required this.colors,
-    this.strokeWidth = 10.0,
-    this.radius = 80.0,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomPaint(
-      size: Size(radius * 2, radius * 2),
-      painter: CircularMultiPainter(
-          values: values, colors: colors, strokeWidth: strokeWidth),
-    );
-  }
-}
-
-class CircularMultiPainter extends CustomPainter {
-  final List<double> values;
-  final List<Color> colors;
-  final double strokeWidth;
-
-  CircularMultiPainter(
-      {required this.values, required this.colors, required this.strokeWidth});
+  CircularMultiProgressIndicator(
+      {required this.values, required this.colors, required this.gapSize});
 
   @override
   void paint(Canvas canvas, Size size) {
-    double startAngle = -pi / 2; // Start from the top (12 o'clock position)
-    double totalProgress = values.reduce((a, b) => a + b); // Sum of percentages
-
-    Paint backgroundPaint = Paint()
-      ..color = Colors.grey.shade300
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+    final Paint paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round;
+      ..strokeWidth = 20
+      ..strokeCap = StrokeCap.butt;
 
-    canvas.drawCircle(
-      Offset(size.width / 2, size.height / 2),
-      size.width / 2,
-      backgroundPaint,
-    );
+    double startAngle = -pi / 2; // Start from top
 
     for (int i = 0; i < values.length; i++) {
-      Paint progressPaint = Paint()
-        ..color = colors[i]
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = strokeWidth
-        ..strokeCap = StrokeCap.round;
-
-      double sweepAngle =
-          (values[i] / totalProgress) * 2 * pi; // Convert percentage to radians
+      final sweepAngle =
+          (values[i] * 2 * pi) - (gapSize * pi); // Reduce angle for gaps
+      paint.color = colors[i];
 
       canvas.drawArc(
-        Rect.fromCircle(
-            center: Offset(size.width / 2, size.height / 2),
-            radius: size.width / 2),
+        Rect.fromCircle(center: center, radius: radius),
         startAngle,
         sweepAngle,
         false,
-        progressPaint,
+        paint,
       );
 
-      startAngle += sweepAngle; // Move start for the next segment
+      startAngle += sweepAngle + (gapSize * pi); // Add gap between segments
     }
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(CircularMultiProgressIndicator oldDelegate) => true;
+}
+
+class SemiCircularProgressIndicator extends StatelessWidget {
+  final double progress; // Progress value (0.0 to 1.0)
+  final String label;
+  final Color color;
+  const SemiCircularProgressIndicator(
+      {super.key,
+      required this.progress,
+      required this.label,
+      required this.color});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 90, // Fixed size
+          height: 45, // Half of width (for semi-circle)
+          child: CustomPaint(
+            painter: SemiCircularPainter(
+              progress,
+              color,
+            ),
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                "${(progress * 100).toStringAsFixed(1)}%", // Show percentage
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 15.0),
+          child: Text(
+            label,
+            style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class SemiCircularPainter extends CustomPainter {
+  final double progress; // Progress value (0.0 to 1.0)
+  final Color color;
+  SemiCircularPainter(this.progress, this.color);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint backgroundPaint = Paint()
+      ..color = Colors.grey.shade400
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 15
+      ..strokeCap = StrokeCap.round;
+
+    final Paint progressPaint = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 15
+      ..strokeCap = StrokeCap.round;
+
+    final center = Offset(size.width / 2, size.height);
+    final radius = size.width / 2;
+
+    // Draw background arc (full semi-circle)
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Start angle (leftmost)
+      pi, // Sweep angle (semi-circle)
+      false,
+      backgroundPaint,
+    );
+
+    // Draw progress arc
+    canvas.drawArc(
+      Rect.fromCircle(center: center, radius: radius),
+      pi, // Start from leftmost
+      progress * pi, // Progress mapped to semi-circle (pi = 100%)
+      false,
+      progressPaint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(SemiCircularPainter oldDelegate) => true;
 }
