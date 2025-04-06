@@ -4,6 +4,8 @@ import 'package:bloc_cubit/features/master_home/view/widget/screen.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
+import '../../../../core/share_widgets/button.dart';
+
 class TabPage extends StatefulWidget {
   final int tab;
 
@@ -62,6 +64,7 @@ class _TabPageState extends State<TabPage> {
                 },
               ),
             ),
+            Button(),
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Column(
