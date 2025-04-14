@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../../../../core/share_widgets/button.dart';
+import '../../../../core/share_widgets/custom_text_form_field.dart';
+import '../../../../core/share_widgets/custom_text_form_field1.dart';
 
 class TabPage extends StatefulWidget {
   final int tab;
@@ -63,6 +65,14 @@ class _TabPageState extends State<TabPage> {
                   );
                 },
               ),
+            ),
+            CustomTextFormField1(
+              labelText: 'E-mail',
+              hintText: 'Write here...',
+              myController: null,
+              isNumber: false,
+              showSuffix: false,
+              showSuffixIcon: true,
             ),
             Button(),
             Padding(
